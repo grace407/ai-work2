@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WHO | 未來食力 - 高級輕食早午餐實驗室</title>
+   
+    <!-- 引入 Google Fonts: Exo 2 (標題) & Noto Sans TC (內文) -->
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;600;900&family=Noto+Sans+TC:wght@300;500;700&display=swap" rel="stylesheet">
+   
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+   
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tech: '#00F2FF',    // 極光青
+                        cyber: '#7000FF',   // 星雲紫
+                        accent: '#FF007A',  // 電光桃紅
+                        dark: '#020205',    // 深淵黑
+                    },
+                    fontFamily: {
+                        exo: ['"Exo 2"', 'sans-serif'],
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+ 
+    <style>
+        /* 強制執行直角規範 */
+        * { border-radius: 0 !important; }
+       
+        body {
+            background-color: #020205;
+            color: #ffffff;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+ 
+        /* 科技感網格背景 */
+        .grid-bg {
+            background-image:
+                linear-gradient(to right, rgba(0, 242, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 242, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+ 
+        /* 霓虹發光文字 */
+        .neon-text {
+            text-shadow: 0 0 10px rgba(0, 242, 255, 0.7), 0 0 20px rgba(0, 242, 255, 0.3);
+        }
+ 
+        /* 玻璃擬態卡片 */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 242, 255, 0.15);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            border-color: #FF007A;
+            background: rgba(255, 255, 255, 0.07);
+            transform: translateY(-5px);
+        }
+ 
+        /* 掃描線動畫 */
+        @keyframes scan {
+            0% { top: -10%; opacity: 0; }
+            50% { opacity: 1; }
+            100% { top: 110%; opacity: 0; }
+        }
+        .scanner {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00F2FF, transparent);
+            animation: scan 3s linear infinite;
+            z-index: 20;
+        }
+ 
+        /* 按鈕掃描效果 */
+        .btn-glitch {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-glitch::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        .btn-glitch:hover::after {
+            left: 100%;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+ 
+    <!-- 導航欄 -->
+    <nav class="fixed w-full z-50 border-b border-tech/20 bg-dark/80 backdrop-blur-md px-6 py-4 flex justify-between items-center">
+        <div class="font-exo text-3xl font-black tracking-tighter text-tech italic neon-text">WHO.</div>
+        <div class="hidden md:flex space-x-10 text-[10px] tracking-[0.3em] uppercase font-bold text-gray-400">
+            <a href="#about" class="hover:text-tech transition">System Mission</a>
+            <a href="#products" class="hover:text-tech transition">Nutrient Nodes</a>
+            <a href="#booking" class="hover:text-tech transition">Booking Protocol</a>
+            <a href="#trust" class="hover:text-tech transition">User Logs</a>
+        </div>
+        <button class="border border-tech text-tech px-6 py-2 text-xs font-bold uppercase hover:bg-tech hover:text-dark transition btn-glitch">
+            Access System
+        </button>
+    </nav>
+ 
+    <!-- 首屏區塊 (Hero Section) -->
+    <section class="relative h-screen flex items-center justify-center grid-bg overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-dark via-transparent to-dark"></div>
+       
+        <!-- 背景 SVG 動畫: 幾何裝飾 -->
+        <svg class="absolute w-full h-full opacity-20 pointer-events-none" viewBox="0 0 100 100">
+            <line x1="0" y1="20" x2="100" y2="20" stroke="#00F2FF" stroke-width="0.1" />
+            <line x1="0" y1="80" x2="100" y2="80" stroke="#7000FF" stroke-width="0.1" />
+            <circle cx="20" cy="50" r="15" stroke="#00F2FF" fill="none" stroke-width="0.05" />
+        </svg>
+ 
+        <div class="relative z-10 text-center px-4 max-w-5xl">
+            <div class="inline-block border border-tech/40 px-3 py-1 mb-6 text-tech text-[10px] tracking-[0.4em] uppercase animate-pulse">
+                Initiating Bio-Upgrade...
+            </div>
+            <h1 class="font-exo text-6xl md:text-9xl font-black mb-6 tracking-tighter italic uppercase leading-none">
+                WHO IS <span class="text-transparent bg-clip-text bg-gradient-to-r from-tech to-cyber">YOUR NEXT?</span>
+            </h1>
+            <p class="text-lg md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto tracking-widest font-light leading-relaxed">
+                定義未來食力。我們將營養轉化為數據，<br>為追求卓越的靈魂提供最精準的能量供給。
+            </p>
+            <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+                <a href="#booking" class="group bg-accent px-12 py-5 font-black text-xl uppercase tracking-tighter hover:brightness-125 transition shadow-[0_0_30px_rgba(255,0,122,0.4)] btn-glitch">
+                    立即開始預約
+                </a>
+                <a href="#products" class="text-white border border-white/20 px-12 py-5 font-black text-xl uppercase tracking-tighter hover:bg-white hover:text-dark transition">
+                    瀏覽功能菜單
+                </a>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- 品牌使命故事 (About) -->
+    <section id="about" class="py-32 px-6 max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
+        <div class="relative">
+            <div class="scanner"></div>
+            <div class="border border-tech/20 p-2">
+                <img src="https://images.unsplash.com/photo-1543362906-acfc16c67564?q=80&w=1000&auto=format&fit=crop"
+                     alt="未來感烹飪" class="grayscale group-hover:grayscale-0 transition duration-700">
+            </div>
+            <div class="absolute -top-4 -left-4 w-20 h-20 border-t-2 border-l-2 border-tech"></div>
+            <div class="absolute -bottom-4 -right-4 w-20 h-20 border-b-2 border-r-2 border-accent"></div>
+        </div>
+        <div>
+            <h2 class="font-exo text-4xl font-black mb-8 italic uppercase flex items-center">
+                <span class="w-12 h-[2px] bg-tech mr-4"></span>
+                Mission_Protocol
+            </h2>
+            <p class="text-gray-400 text-xl leading-relaxed mb-8 font-light">
+                「WHO」不只是一間餐酒館，它是對現代生活效能的終極反思。我們拋棄傳統早午餐的負擔，改以「低溫烹飪」與「機能食材」重新建構每一道料理。
+            </p>
+            <div class="grid grid-cols-2 gap-8 border-t border-white/10 pt-10">
+                <div>
+                    <div class="text-tech font-exo text-3xl font-bold mb-2">01_精準</div>
+                    <p class="text-gray-500 text-sm italic uppercase tracking-widest">Precision Nutrition</p>
+                </div>
+                <div>
+                    <div class="text-cyber font-exo text-3xl font-bold mb-2">02_機能</div>
+                    <p class="text-gray-500 text-sm italic uppercase tracking-widest">Functional Energy</p>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- 精選產品展示 (Products) -->
+    <section id="products" class="py-32 bg-[#05050a] relative">
+        <div class="max-w-7xl mx-auto px-6 text-center mb-24">
+            <h2 class="font-exo text-5xl font-black mb-4 italic uppercase">Selected Nodes</h2>
+            <p class="text-tech tracking-[0.5em] text-xs uppercase font-bold animate-pulse">精選未來供能方案</p>
+        </div>
+       
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-8">
+            <!-- 產品卡片 1 -->
+            <div class="glass-card flex flex-col">
+                <div class="relative overflow-hidden h-72">
+                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=1000&auto=format&fit=crop"
+                         alt="健康輕食碗" class="w-full h-full object-cover">
+                    <div class="absolute top-4 right-4 bg-dark/80 border border-tech px-2 py-1 text-[10px] text-tech font-mono">ID: 404_BOWL</div>
+                </div>
+                <div class="p-8 flex-grow flex flex-col">
+                    <h3 class="font-exo text-2xl font-bold mb-4 tracking-tighter uppercase italic">極光低醣溫沙拉</h3>
+                    <p class="text-gray-500 text-sm mb-8 leading-relaxed">內含舒肥雞胸、有機紅藜麥、羽衣甘藍及獨家調配電解質醬汁。專為腦力勞動者設計。</p>
+                    <div class="mt-auto flex justify-between items-end border-t border-white/5 pt-6">
+                        <div>
+                            <span class="block text-[10px] text-gray-600 uppercase font-bold mb-1">Energy Value</span>
+                            <span class="font-exo text-2xl text-tech font-black italic">$420</span>
+                        </div>
+                        <button class="bg-white text-dark px-4 py-2 text-xs font-black uppercase tracking-widest hover:bg-tech transition">Inject</button>
+                    </div>
+                </div>
+            </div>
+ 
+            <!-- 產品卡片 2 -->
+            <div class="glass-card flex flex-col border-accent/40">
+                <div class="relative overflow-hidden h-72">
+                    <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=1000&auto=format&fit=crop"
+                         alt="酪梨吐司" class="w-full h-full object-cover">
+                    <div class="absolute top-4 right-4 bg-dark/80 border border-accent px-2 py-1 text-[10px] text-accent font-mono">ID: 200_TOAST</div>
+                </div>
+                <div class="p-8 flex-grow flex flex-col">
+                    <h3 class="font-exo text-2xl font-bold mb-4 tracking-tighter uppercase italic">核心修復開放三明治</h3>
+                    <p class="text-gray-500 text-sm mb-8 leading-relaxed">酸種麵包配搭新鮮酪梨、煙燻鮭魚與低溫水煮蛋。優質脂肪酸與蛋白質的最佳比例。</p>
+                    <div class="mt-auto flex justify-between items-end border-t border-white/5 pt-6">
+                        <div>
+                            <span class="block text-[10px] text-gray-600 uppercase font-bold mb-1">Energy Value</span>
+                            <span class="font-exo text-2xl text-tech font-black italic">$380</span>
+                        </div>
+                        <button class="bg-white text-dark px-4 py-2 text-xs font-black uppercase tracking-widest hover:bg-tech transition">Inject</button>
+                    </div>
+                </div>
+            </div>
+ 
+            <!-- 產品卡片 3 (修正圖片) -->
+            <div class="glass-card flex flex-col">
+                <div class="relative overflow-hidden h-72">
+                    <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?q=80&w=1000&auto=format&fit=crop"
+                         alt="特調藍色飲品" class="w-full h-full object-cover">
+                    <div class="absolute top-4 right-4 bg-dark/80 border border-tech px-2 py-1 text-[10px] text-tech font-mono">ID: 808_BREW</div>
+                </div>
+                <div class="p-8 flex-grow flex flex-col">
+                    <h3 class="font-exo text-2xl font-bold mb-4 tracking-tighter uppercase italic">零重力電光特調</h3>
+                    <p class="text-gray-500 text-sm mb-8 leading-relaxed">注入微型氣泡與天然藍色維生素，瞬時喚醒神經網絡。清爽、無重力，專為靈感渴求者調配。</p>
+                    <div class="mt-auto flex justify-between items-end border-t border-white/5 pt-6">
+                        <div>
+                            <span class="block text-[10px] text-gray-600 uppercase font-bold mb-1">Energy Value</span>
+                            <span class="font-exo text-2xl text-tech font-black italic">$240</span>
+                        </div>
+                        <button class="bg-white text-dark px-4 py-2 text-xs font-black uppercase tracking-widest hover:bg-tech transition">Inject</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- 預約區塊 (新增: Booking Section) -->
+    <section id="booking" class="py-32 px-6 grid-bg">
+        <div class="max-w-4xl mx-auto glass-card p-12 border-tech/40 relative overflow-hidden">
+            <div class="scanner"></div>
+            <div class="relative z-10 text-center">
+                <h2 class="font-exo text-4xl font-black mb-6 italic uppercase tracking-tighter">Initialize_Booking</h2>
+                <p class="text-gray-400 mb-10 tracking-widest font-light">
+                    接入 WHO 系統，預定您的下次能量升級。<br>每日配額有限，請儘早鎖定您的 Node。
+                </p>
+                <div class="grid md:grid-cols-2 gap-4 mb-8">
+                    <div class="bg-white/5 border border-white/10 p-4 text-left">
+                        <span class="block text-[10px] text-tech uppercase font-bold mb-1">Selected Location</span>
+                        <span class="text-white font-exo">XINYI_LAB_101</span>
+                    </div>
+                    <div class="bg-white/5 border border-white/10 p-4 text-left">
+                        <span class="block text-[10px] text-tech uppercase font-bold mb-1">Status</span>
+                        <span class="text-white font-exo animate-pulse">SYSTEM_ONLINE</span>
+                    </div>
+                </div>
+                <button class="w-full bg-tech text-dark py-5 font-black text-xl uppercase tracking-widest hover:bg-white transition btn-glitch shadow-[0_0_20px_rgba(0,242,255,0.4)]">
+                    立即鎖定席位 (Connect)
+                </button>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- 用戶信任感 (Trust) -->
+    <section id="trust" class="py-32 px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <div class="font-exo text-tech text-6xl font-black mb-4">99.8%</div>
+                <p class="text-gray-500 text-sm tracking-[0.4em] uppercase font-bold">System Efficiency Reported by Users</p>
+            </div>
+           
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="border-l-4 border-tech pl-8 italic">
+                    <p class="text-xl text-gray-300 mb-4 font-light">"這不只是早午餐，這是一種升級感。每次用餐完後，我的專注力明顯提升，不再有傳統餐後的倦怠。"</p>
+                    <cite class="text-tech font-bold not-italic font-exo tracking-widest">— Alex Chen, Senior Developer</cite>
+                </div>
+                <div class="border-l-4 border-cyber pl-8 italic">
+                    <p class="text-xl text-gray-300 mb-4 font-light">"視覺與味覺的雙重饗宴。WHO 的直角美學與精準調味完全打中我的設計師靈魂。"</p>
+                    <cite class="text-cyber font-bold not-italic font-exo tracking-widest">— Sarah Lin, Art Director</cite>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- 底部 (Footer) -->
+    <footer class="bg-dark border-t border-white/10 pt-24 pb-12 px-6">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-16 mb-24">
+            <div class="col-span-2">
+                <div class="font-exo text-5xl font-black text-tech italic mb-8 neon-text">WHO.</div>
+                <p class="text-gray-500 max-w-sm mb-10 leading-loose">
+                    台北市信義區未來大道 101 號 <br>
+                    (02) 2345-6789 <br>
+                    protocol@who.future
+                </p>
+                <div class="flex space-x-8">
+                    <a href="#" class="text-white hover:text-accent transition uppercase text-xs font-black tracking-widest">Instagram</a>
+                    <a href="#" class="text-white hover:text-accent transition uppercase text-xs font-black tracking-widest">Discord</a>
+                    <a href="#" class="text-white hover:text-accent transition uppercase text-xs font-black tracking-widest">Twitter</a>
+                </div>
+            </div>
+           
+            <!-- 模擬地圖區塊 -->
+            <div class="col-span-2 h-72 border border-tech/20 bg-tech/5 relative flex items-center justify-center overflow-hidden">
+                <div class="scanner"></div>
+                <div class="text-center z-10">
+                    <div class="w-3 h-3 bg-accent animate-ping mx-auto mb-4"></div>
+                    <p class="font-exo text-xs tracking-widest text-tech">COORDINATES: 25.0330° N, 121.5654° E</p>
+                    <p class="text-gray-600 text-[10px] mt-2 font-mono uppercase italic">Secure Location_Locked</p>
+                </div>
+                <!-- 地圖背景網格 -->
+                <div class="absolute inset-0 grid-bg opacity-20"></div>
+            </div>
+        </div>
+       
+        <div class="max-w-7xl mx-auto pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-700 tracking-[0.4em] font-bold uppercase">
+            <p>&copy; 2026 WHO FUTURE FOOD PROTOCOL. All Rights Reserved.</p>
+            <p class="mt-4 md:mt-0">Encrypted by WHOCORP_OS</p>
+        </div>
+    </footer>
+ 
+</body>
+</html>
+ 
+
